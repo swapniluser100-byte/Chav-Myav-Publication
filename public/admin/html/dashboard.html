@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>डॅशबोर्ड | ॲडमिन कन्सोल</title>
+<link rel="stylesheet" href="/admin/css/admin.css" />
+</head>
+<body>
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="brand">
+      <span class="brand-mark">चव म्याव प्रकाशन</span>
+      <span class="brand-sub">ADMIN CONSOLE</span>
+    </div>
+    <nav>
+      <a href="/admin/html/dashboard.html" class="active">डॅशबोर्ड</a>
+      <a href="/admin/html/books.html">पुस्तके</a>
+      <a href="/admin/html/orders.html">ऑर्डर्स</a>
+      <a href="/admin/html/customers.html">ग्राहक</a>
+    </nav>
+    <button class="logout-btn" data-logout>लॉगआउट</button>
+  </aside>
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>डॅशबोर्ड</h1>
+      <span style="font-size:14px;color:var(--muted);">स्वागत आहे, <strong data-admin-name>...</strong></span>
+    </div>
+
+    <div class="stat-grid" id="stat-grid"></div>
+
+    <div class="admin-header"><h1 style="font-size:18px;">अलीकडील ऑर्डर्स</h1></div>
+    <div id="recent-orders"></div>
+
+    <div class="admin-header" style="margin-top:32px;"><h1 style="font-size:18px;">अलीकडील ब्रँडेड ईमेल्स</h1></div>
+    <div id="recent-emails"></div>
+  </main>
+</div>
+<script src="/admin/js/admin-api.js"></script>
+<script src="/admin/js/dashboard.js"></script>
+</body>
+</html>

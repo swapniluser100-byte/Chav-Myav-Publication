@@ -1,0 +1,352 @@
+/* ===========================================================
+   Chav Myav Publication -- Storefront design system
+   Palette inspired by Maharashtrian book covers: deep ink,
+   handmade paper, kumkum maroon, and turmeric gold accents.
+   =========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&display=swap');
+
+:root {
+  --ink:        #1E2A28;
+  --ink-soft:   #2C3B38;
+  --paper:      #F3ECDD;
+  --paper-alt:  #FAF6EC;
+  --maroon:     #8C1F28;
+  --maroon-dark:#6E1620;
+  --turmeric:   #C98A2B;
+  --sage:       #5B6F5B;
+  --muted:      #6B6357;
+  --line:       #E5DCC7;
+  --radius: 4px;
+  --font-display: 'Noto Serif Devanagari', 'Noto Sans Devanagari', serif;
+  --font-body: 'Noto Sans Devanagari', 'Nirmala UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom: 3px solid var(--turmeric);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--paper);
+}
+
+.brand-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.5px;
+}
+
+.brand-sub {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--turmeric);
+  margin-top: 2px;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: var(--paper);
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+.main-nav a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+.cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--maroon);
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+
+.cart-count {
+  background: var(--turmeric);
+  color: var(--ink);
+  border-radius: 50%;
+  min-width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  padding: 72px 0 56px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero .container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero-eyebrow {
+  color: var(--maroon);
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 1.25;
+  margin: 0 0 20px;
+  max-width: 14ch;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 17px;
+  max-width: 46ch;
+  margin: 0 0 28px;
+}
+
+.hero-visual {
+  background: var(--ink);
+  border-radius: 6px;
+  aspect-ratio: 4/5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--turmeric);
+  font-family: var(--font-display);
+  font-size: 20px;
+  text-align: center;
+  padding: 32px;
+  border: 6px solid var(--paper-alt);
+  box-shadow: 0 12px 0 -6px var(--maroon);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary { background: var(--maroon); color: #fff; }
+.btn-primary:hover { background: var(--maroon-dark); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+}
+.btn-secondary:hover { background: var(--ink); color: var(--paper); }
+
+.btn-block { width: 100%; }
+.btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+/* ---------- Section headings ---------- */
+.section {
+  padding: 56px 0;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 12px;
+}
+
+.section-head h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  margin: 0;
+}
+
+.section-head a { font-size: 14px; color: var(--maroon); text-decoration: none; font-weight: 600; }
+
+/* ---------- Book grid & cards ---------- */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 28px;
+}
+
+.book-card {
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+
+.book-cover {
+  background: linear-gradient(160deg, var(--ink-soft), var(--ink));
+  aspect-ratio: 3/4;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--turmeric);
+  font-family: var(--font-display);
+  font-size: 15px;
+  text-align: center;
+  padding: 16px;
+  border-bottom: 4px solid var(--maroon);
+  overflow: hidden;
+}
+
+.book-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+.book-card h3 {
+  font-size: 16px;
+  margin: 0 0 4px;
+  font-weight: 600;
+}
+
+.book-author { font-size: 13px; color: var(--muted); margin: 0 0 8px; }
+
+.book-price {
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.book-mrp {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-left: 6px;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--turmeric);
+  color: var(--ink);
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+/* ---------- Category chips ---------- */
+.category-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.category-chip {
+  border: 1.5px solid var(--ink);
+  padding: 8px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.category-chip.active,
+.category-chip:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--ink);
+  color: var(--paper);
+  margin-top: 64px;
+  padding: 48px 0 28px;
+}
+
+.site-footer .container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 32px;
+}
+
+.site-footer h4 { font-size: 14px; color: var(--turmeric); margin: 0 0 14px; }
+.site-footer p, .site-footer a { color: #D9D2C2; font-size: 14px; text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+.footer-bottom {
+  text-align: center;
+  font-size: 12px;
+  color: #8B8577;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #3A4A47;
+}
+
+/* ---------- Utility ---------- */
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+  color: var(--muted);
+}
+
+.loading-state { text-align: center; padding: 48px; color: var(--muted); }
+
+@media (max-width: 800px) {
+  .hero .container { grid-template-columns: 1fr; }
+  .hero-visual { order: -1; max-width: 280px; margin: 0 auto; }
+  .site-footer .container { grid-template-columns: 1fr; }
+  .main-nav { gap: 16px; }
+}
