@@ -11,10 +11,10 @@ async function adminRequest(path, options = {}) {
 
   if (res.status === 401) {
     if (!location.pathname.endsWith('/login.html')) location.href = '/admin/html/login.html';
-    throw new Error('अनधिकृत');
+    throw new Error('Unauthorized');
   }
   if (!res.ok || data.ok === false) {
-    throw new Error(data.error || 'काहीतरी चूक झाली');
+    throw new Error(data.error || 'Something went wrong');
   }
   return data;
 }
@@ -48,12 +48,12 @@ function formatRupees(paise) {
 
 function statusLabel(status) {
   const map = {
-    pending_payment: 'पेमेंट प्रलंबित',
-    paid: 'पेमेंट झाले',
-    shipped: 'पाठवले',
-    delivered: 'पोहोचले',
-    cancelled: 'रद्द',
-    payment_failed: 'पेमेंट अयशस्वी',
+    pending_payment: 'Payment Pending',
+    paid: 'Paid',
+    shipped: 'Shipped',
+    delivered: 'Delivered',
+    cancelled: 'Cancelled',
+    payment_failed: 'Payment Failed',
   };
   return map[status] || status;
 }

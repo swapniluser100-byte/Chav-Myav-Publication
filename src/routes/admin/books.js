@@ -22,7 +22,7 @@ export async function adminListBooks(request, env) {
 /** POST /api/admin/books */
 export async function createBook(request, env) {
   const b = await request.json().catch(() => null);
-  if (!b || !b.title || !b.author || b.price_paise == null) return error('शीर्षक, लेखक व किंमत आवश्यक', 400);
+  if (!b || !b.title || !b.author || b.price_paise == null) return error('Title, author, and price are required', 400);
 
   const slug = b.slug ? slugify(b.slug) : slugify(b.title);
   const result = await env.DB.prepare(
@@ -52,7 +52,7 @@ export async function createBook(request, env) {
 /** PUT /api/admin/books/:id */
 export async function updateBook(request, env, id) {
   const b = await request.json().catch(() => null);
-  if (!b) return error('अवैध विनंती', 400);
+  if (!b) return error('Invalid request', 400);
 
   await env.DB.prepare(
     `UPDATE books SET title=?, author=?, category_id=?, description=?, price_paise=?, mrp_paise=?, stock=?, pages=?, isbn=?, cover_image_url=?, is_featured=?, is_active=?, updated_at=datetime('now')
@@ -93,7 +93,7 @@ export async function adminListCategories(request, env) {
 /** POST /api/admin/categories */
 export async function createCategory(request, env) {
   const c = await request.json().catch(() => null);
-  if (!c || !c.name) return error('नाव आवश्यक', 400);
+  if (!c || !c.name) return error('Name is required', 400);
   const slug = c.slug ? slugify(c.slug) : slugify(c.name);
   const result = await env.DB.prepare(`INSERT INTO categories (name, slug, description) VALUES (?, ?, ?)`)
     .bind(c.name, slug, c.description || null)

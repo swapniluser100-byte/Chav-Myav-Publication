@@ -55,18 +55,18 @@ async function markOrderPaidAndNotify(env, order) {
  */
 export async function verifyPayment(request, env) {
   const body = await request.json().catch(() => null);
-  if (!body) return error('अवैध विनंती', 400);
+  if (!body) return error('Invalid request', 400);
 
   const { razorpay_order_id: orderId, razorpay_payment_id: paymentId, razorpay_signature: signature } = body;
-  if (!orderId || !paymentId || !signature) return error('अपूर्ण पेमेंट माहिती', 400);
+  if (!orderId || !paymentId || !signature) return error('Incomplete payment information', 400);
 
   const valid = await verifyPaymentSignature(env, { orderId, paymentId, signature });
-  if (!valid) return error('पेमेंट सत्यापन अयशस्वी', 400);
+  if (!valid) return error('Payment verification failed', 400);
 
   const order = await env.DB.prepare(`SELECT * FROM orders WHERE razorpay_order_id = ?`)
     .bind(orderId)
     .first();
-  if (!order) return error('ऑर्डर सापडली नाही', 404);
+  if (!order) return error('Order not found', 404);
 
   await env.DB.prepare(`UPDATE orders SET razorpay_payment_id = ? WHERE id = ?`).bind(paymentId, order.id).run();
   await markOrderPaidAndNotify(env, { ...order, razorpay_payment_id: paymentId });
@@ -84,7 +84,7 @@ export async function razorpayWebhook(request, env) {
   const signature = request.headers.get('X-Razorpay-Signature');
 
   const valid = await verifyWebhookSignature(env, rawBody, signature);
-  if (!valid) return error('अवैध वेबहूक स्वाक्षरी', 400);
+  if (!valid) return error('Invalid webhook signature', 400);
 
   const payload = JSON.parse(rawBody);
   if (payload.event === 'payment.captured') {

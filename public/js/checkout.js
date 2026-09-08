@@ -13,9 +13,9 @@ function renderSummary() {
           (i) => `<div class="summary-row"><span>${i.title} × ${i.quantity}</span><span>${formatRupees(i.price_paise * i.quantity)}</span></div>`
         )
         .join('')}
-      <div class="summary-row"><span>उप-बेरीज</span><span>${formatRupees(subtotal)}</span></div>
-      <div class="summary-row"><span>शिपिंग</span><span>${shipping ? formatRupees(shipping) : 'मोफत'}</span></div>
-      <div class="summary-row total"><span>एकूण</span><span>${formatRupees(subtotal + shipping)}</span></div>
+      <div class="summary-row"><span>Subtotal</span><span>${formatRupees(subtotal)}</span></div>
+      <div class="summary-row"><span>Shipping</span><span>${shipping ? formatRupees(shipping) : 'Free'}</span></div>
+      <div class="summary-row total"><span>Total</span><span>${formatRupees(subtotal + shipping)}</span></div>
     </div>
   `;
 }
@@ -33,7 +33,7 @@ async function handleSubmit(e) {
   const errorBox = document.getElementById('checkout-error');
   errorBox.style.display = 'none';
   submitBtn.disabled = true;
-  submitBtn.textContent = 'प्रक्रिया सुरू आहे...';
+  submitBtn.textContent = 'Processing...';
 
   const customer = {
     name: form.name.value.trim(),
@@ -55,8 +55,8 @@ async function handleSubmit(e) {
       key: orderResult.razorpayKeyId,
       amount: orderResult.amountPaise,
       currency: 'INR',
-      name: 'चव म्याव प्रकाशन',
-      description: `ऑर्डर #${orderResult.orderNumber}`,
+      name: 'Chav Myav Publication',
+      description: `Order #${orderResult.orderNumber}`,
       order_id: orderResult.razorpayOrderId,
       prefill: { name: customer.name, email: customer.email, contact: customer.phone },
       theme: { color: '#8C1F28' },
@@ -77,7 +77,7 @@ async function handleSubmit(e) {
       modal: {
         ondismiss: function () {
           submitBtn.disabled = false;
-          submitBtn.textContent = 'पैसे भरा';
+          submitBtn.textContent = 'Pay Now';
         },
       },
     });
@@ -88,7 +88,7 @@ async function handleSubmit(e) {
     errorBox.style.display = 'block';
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'पैसे भरा';
+    submitBtn.textContent = 'Pay Now';
   }
 }
 

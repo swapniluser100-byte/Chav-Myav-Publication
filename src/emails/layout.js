@@ -10,8 +10,7 @@ const BRAND = {
   muted: '#6B6357',
 };
 
-const FONT_STACK =
-  "'Noto Sans Devanagari','Mangal','Nirmala UI',-apple-system,Segoe UI,Roboto,sans-serif";
+const FONT_STACK = "-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif";
 
 /**
  * @param {string} preheader - short hidden preview text
@@ -21,7 +20,7 @@ const FONT_STACK =
  */
 export function emailLayout({ preheader = '', bodyHtml, ctaLabel, ctaUrl }) {
   return `<!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,10 +39,10 @@ export function emailLayout({ preheader = '', bodyHtml, ctaLabel, ctaUrl }) {
                 <tr>
                   <td>
                     <span style="font-size:20px;font-weight:700;color:${BRAND.paper};letter-spacing:0.5px;">
-                      चव म्याव प्रकाशन
+                      Chav Myav Publication
                     </span>
                     <br/>
-                    <span style="font-size:11px;color:${BRAND.turmeric};letter-spacing:1px;">CHAV MYAV PUBLICATION</span>
+                    <span style="font-size:11px;color:${BRAND.turmeric};letter-spacing:1px;">AUTHENTIC MARATHI BOOKS</span>
                   </td>
                 </tr>
               </table>
@@ -72,10 +71,9 @@ export function emailLayout({ preheader = '', bodyHtml, ctaLabel, ctaUrl }) {
           <tr>
             <td style="background-color:#FAF6EC;padding:20px 32px;border-top:1px solid #E5DCC7;">
               <p style="margin:0;font-size:12px;color:${BRAND.muted};">
-                चव म्याव प्रकाशन · मराठी पुस्तकांचे अस्सल घर<br/>
-                या ईमेलला उत्तर देऊ नका असे वाटल्यास आमच्याशी
-                <a href="mailto:support@chavmayav.com" style="color:${BRAND.maroon};">support@chavmayav.com</a>
-                वर संपर्क साधा.
+                Chav Myav Publication &middot; A trusted home for Marathi literature<br/>
+                Questions about your order? Reach us anytime at
+                <a href="mailto:support@chavmayav.com" style="color:${BRAND.maroon};">support@chavmayav.com</a>.
               </p>
             </td>
           </tr>

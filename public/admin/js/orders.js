@@ -6,8 +6,8 @@ function orderRowHtml(o) {
       <td>${o.shipping_name}<br/><small style="color:var(--muted);">${o.shipping_city}, ${o.shipping_state}</small></td>
       <td><span class="status-pill status-${o.status}">${statusLabel(o.status)}</span></td>
       <td>${formatRupees(o.total_paise)}</td>
-      <td>${new Date(o.created_at).toLocaleDateString('mr-IN')}</td>
-      <td><button class="btn btn-secondary" data-action="manage">व्यवस्थापित करा</button></td>
+      <td>${new Date(o.created_at).toLocaleDateString('en-IN')}</td>
+      <td><button class="btn btn-secondary" data-action="manage">Manage</button></td>
     </tr>
   `;
 }
@@ -16,14 +16,14 @@ function manageModalHtml(order) {
   const statuses = ['pending_payment', 'paid', 'shipped', 'delivered', 'cancelled', 'payment_failed'];
   return `
     <div class="form-group">
-      <label>स्थिती</label>
+      <label>Status</label>
       <select name="status">
         ${statuses.map((s) => `<option value="${s}" ${order.status === s ? 'selected' : ''}>${statusLabel(s)}</option>`).join('')}
       </select>
     </div>
-    <div class="form-group"><label>ट्रॅकिंग क्रमांक</label><input name="tracking_number" value="${order.tracking_number || ''}" /></div>
-    <div class="form-group"><label>टीप (अंतर्गत)</label><textarea name="notes" rows="2">${order.notes || ''}</textarea></div>
-    <p style="font-size:12px;color:var(--muted);">"पाठवले" ही स्थिती निवडल्यास ग्राहकाला आपोआप ब्रँडेड शिपिंग ईमेल जाईल.</p>
+    <div class="form-group"><label>Tracking Number</label><input name="tracking_number" value="${order.tracking_number || ''}" /></div>
+    <div class="form-group"><label>Internal Notes</label><textarea name="notes" rows="2">${order.notes || ''}</textarea></div>
+    <p style="font-size:12px;color:var(--muted);">Setting status to "Shipped" will automatically send the customer a branded shipping email.</p>
   `;
 }
 
@@ -34,7 +34,7 @@ async function loadOrders() {
     const { orders } = await AdminApi.getOrders(status);
     tbody.innerHTML = orders.length
       ? orders.map(orderRowHtml).join('')
-      : `<tr><td colspan="6" class="empty-state">कोणतीही ऑर्डर सापडली नाही.</td></tr>`;
+      : `<tr><td colspan="6" class="empty-state">No orders found.</td></tr>`;
 
     tbody.querySelectorAll('button[data-action="manage"]').forEach((btn) => {
       btn.addEventListener('click', async () => {
@@ -53,12 +53,12 @@ function openOrderModal(order) {
   backdrop.className = 'modal-backdrop';
   backdrop.innerHTML = `
     <div class="modal">
-      <h2>ऑर्डर #${order.order_number}</h2>
+      <h2>Order #${order.order_number}</h2>
       <form id="order-form">${manageModalHtml(order)}</form>
       <p class="form-error" id="order-modal-error"></p>
       <div class="modal-actions">
-        <button class="btn btn-secondary" id="order-modal-cancel" type="button">रद्द करा</button>
-        <button class="btn btn-primary" type="submit" form="order-form">जतन करा</button>
+        <button class="btn btn-secondary" id="order-modal-cancel" type="button">Cancel</button>
+        <button class="btn btn-primary" type="submit" form="order-form">Save</button>
       </div>
     </div>
   `;

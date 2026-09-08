@@ -60,7 +60,7 @@ async function handleApi(request, env) {
   // ---------- Everything else under /admin/* requires a valid session ----------
   if (segments[0] === 'admin') {
     const session = await requireAdmin(request, env);
-    if (!session) return error('अनधिकृत - कृपया पुन्हा लॉगिन करा', 401);
+    if (!session) return error('Unauthorized - please log in again', 401);
 
     if (path === '/admin/dashboard' && method === 'GET') return getDashboard(request, env);
 
@@ -80,7 +80,7 @@ async function handleApi(request, env) {
     if (segments[1] === 'customers' && segments[2] && method === 'GET') return adminGetCustomer(request, env, segments[2]);
   }
 
-  return error('मार्ग सापडला नाही', 404);
+  return error('Route not found', 404);
 }
 
 export default {
@@ -97,7 +97,7 @@ export default {
         return withCors(response);
       } catch (err) {
         console.error(err);
-        return withCors(error('अंतर्गत त्रुटी (server error)', 500));
+        return withCors(error('Internal server error', 500));
       }
     }
 

@@ -10,7 +10,7 @@ async function request(path, options = {}) {
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok || data.ok === false) {
-    throw new Error(data.error || 'काहीतरी चूक झाली, कृपया पुन्हा प्रयत्न करा.');
+    throw new Error(data.error || 'Something went wrong. Please try again.');
   }
   return data;
 }

@@ -4,12 +4,12 @@ const root = document.getElementById('book-detail');
 
 async function loadBook() {
   if (!slug) {
-    root.innerHTML = `<p class="empty-state">पुस्तक निवडलेले नाही.</p>`;
+    root.innerHTML = `<p class="empty-state">No book selected.</p>`;
     return;
   }
   try {
     const { book } = await Api.getBook(slug);
-    document.title = `${book.title} | चव म्याव प्रकाशन`;
+    document.title = `${book.title} | Chav Myav Publication`;
 
     const cover = book.cover_image_url
       ? `<img src="${book.cover_image_url}" alt="${book.title}" />`
@@ -20,17 +20,17 @@ async function loadBook() {
       <div>
         ${book.category_name ? `<p class="hero-eyebrow">${book.category_name}</p>` : ''}
         <h1 style="font-size:32px;">${book.title}</h1>
-        <p class="book-author" style="font-size:15px;">लेखक: ${book.author}</p>
+        <p class="book-author" style="font-size:15px;">By ${book.author}</p>
         <p style="margin:20px 0;">${book.description || ''}</p>
         <div style="margin-bottom:20px;">
           <span class="book-price" style="font-size:24px;">${formatRupees(book.price_paise)}</span>
           ${book.mrp_paise ? `<span class="book-mrp">${formatRupees(book.mrp_paise)}</span>` : ''}
         </div>
         <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">
-          ${book.stock > 0 ? `साठ्यात उपलब्ध (${book.stock} प्रती)` : 'सध्या स्टॉकमध्ये नाही'}
+          ${book.stock > 0 ? `In stock (${book.stock} copies available)` : 'Currently out of stock'}
         </p>
         <button class="btn btn-primary" id="add-to-cart" ${book.stock < 1 ? 'disabled' : ''}>
-          कार्टमध्ये टाका
+          Add to Cart
         </button>
       </div>
     `;
@@ -38,8 +38,8 @@ async function loadBook() {
     document.getElementById('add-to-cart')?.addEventListener('click', () => {
       CartStore.add(book, 1);
       const btn = document.getElementById('add-to-cart');
-      btn.textContent = 'कार्टमध्ये टाकले ✓';
-      setTimeout(() => (btn.textContent = 'कार्टमध्ये टाका'), 1500);
+      btn.textContent = 'Added to Cart ✓';
+      setTimeout(() => (btn.textContent = 'Add to Cart'), 1500);
     });
   } catch (err) {
     root.innerHTML = `<p class="empty-state">${err.message}</p>`;

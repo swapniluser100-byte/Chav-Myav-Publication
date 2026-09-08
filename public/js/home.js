@@ -7,7 +7,7 @@ function bookCardHtml(book) {
   return `
     <a class="book-card" href="/html/book.html?slug=${book.slug}">
       <div class="book-cover">${cover}</div>
-      ${book.is_featured ? '<span class="badge">निवडक</span>' : ''}
+      ${book.is_featured ? '<span class="badge">Featured</span>' : ''}
       <h3>${book.title}</h3>
       <p class="book-author">${book.author}</p>
       <div>
@@ -24,7 +24,7 @@ async function loadFeatured() {
     const { books } = await Api.getBooks({ featured: '1' });
     el.innerHTML = books.length
       ? books.map(bookCardHtml).join('')
-      : `<p class="empty-state">सध्या निवडक पुस्तके उपलब्ध नाहीत.</p>`;
+      : `<p class="empty-state">No featured books available right now.</p>`;
   } catch (err) {
     el.innerHTML = `<p class="empty-state">${err.message}</p>`;
   }
@@ -37,7 +37,7 @@ async function loadCategoriesAndBooks() {
   try {
     const { categories } = await Api.getCategories();
     chipRow.innerHTML =
-      `<button class="category-chip active" data-slug="">सर्व</button>` +
+      `<button class="category-chip active" data-slug="">All</button>` +
       categories.map((c) => `<button class="category-chip" data-slug="${c.slug}">${c.name}</button>`).join('');
 
     chipRow.querySelectorAll('.category-chip').forEach((chip) => {
@@ -52,12 +52,12 @@ async function loadCategoriesAndBooks() {
   }
 
   async function loadBooks(categorySlug) {
-    grid.innerHTML = `<p class="loading-state">पुस्तके लोड होत आहेत...</p>`;
+    grid.innerHTML = `<p class="loading-state">Loading books...</p>`;
     try {
       const { books } = await Api.getBooks(categorySlug ? { category: categorySlug } : {});
       grid.innerHTML = books.length
         ? books.map(bookCardHtml).join('')
-        : `<p class="empty-state">या विभागात सध्या पुस्तके नाहीत.</p>`;
+        : `<p class="empty-state">No books in this category yet.</p>`;
     } catch (err) {
       grid.innerHTML = `<p class="empty-state">${err.message}</p>`;
     }

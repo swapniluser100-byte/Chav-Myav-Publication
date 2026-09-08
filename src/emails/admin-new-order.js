@@ -7,7 +7,7 @@ function rupees(paise) {
 
 export function adminNewOrderEmail(order) {
   const bodyHtml = `
-    <p style="margin:0 0 8px;font-size:17px;font-weight:700;">नवीन ऑर्डर आली आहे 🎉</p>
+    <p style="margin:0 0 8px;font-size:17px;font-weight:700;">New order received 🎉</p>
     <p style="margin:0 0 16px;color:${brandColors.muted};">
       #${order.order_number} — ${order.shipping_name} (${order.shipping_phone})
     </p>
@@ -15,11 +15,11 @@ export function adminNewOrderEmail(order) {
   `;
 
   return {
-    subject: `नवीन ऑर्डर #${order.order_number} - ${rupees(order.total_paise)}`,
+    subject: `New Order #${order.order_number} - ${rupees(order.total_paise)}`,
     html: emailLayout({
-      preheader: `नवीन ऑर्डर #${order.order_number}`,
+      preheader: `New order #${order.order_number}`,
       bodyHtml,
-      ctaLabel: 'ॲडमिन कन्सोलमध्ये पाहा',
+      ctaLabel: 'View in Admin Console',
       ctaUrl: `https://chavmayav.com/admin/html/orders.html?order=${order.order_number}`,
     }),
   };

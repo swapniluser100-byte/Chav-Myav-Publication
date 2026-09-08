@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ग्राहक | ॲडमिन कन्सोल</title>
+<title>Customers | Admin Console</title>
 <link rel="stylesheet" href="/admin/css/admin.css" />
 </head>
 <body>
 <div class="admin-shell">
   <aside class="admin-sidebar">
     <div class="brand">
-      <span class="brand-mark">चव म्याव प्रकाशन</span>
+      <span class="brand-mark">Chav Myav Publication</span>
       <span class="brand-sub">ADMIN CONSOLE</span>
     </div>
     <nav>
-      <a href="/admin/html/dashboard.html">डॅशबोर्ड</a>
-      <a href="/admin/html/books.html">पुस्तके</a>
-      <a href="/admin/html/orders.html">ऑर्डर्स</a>
-      <a href="/admin/html/customers.html" class="active">ग्राहक</a>
+      <a href="/admin/html/dashboard.html">Dashboard</a>
+      <a href="/admin/html/books.html">Books</a>
+      <a href="/admin/html/orders.html">Orders</a>
+      <a href="/admin/html/customers.html" class="active">Customers</a>
     </nav>
-    <button class="logout-btn" data-logout>लॉगआउट</button>
+    <button class="logout-btn" data-logout>Log Out</button>
   </aside>
   <main class="admin-main">
     <div class="admin-header">
-      <h1>ग्राहक</h1>
+      <h1>Customers</h1>
     </div>
 
     <table class="admin-table">
       <thead>
-        <tr><th>नाव / ईमेल</th><th>फोन</th><th>शहर</th><th>ऑर्डर्स</th><th>एकूण खरेदी</th></tr>
+        <tr><th>Name / Email</th><th>Phone</th><th>City</th><th>Orders</th><th>Lifetime Value</th></tr>
       </thead>
       <tbody id="customers-tbody">
-        <tr><td colspan="5" class="empty-state">लोड होत आहे...</td></tr>
+        <tr><td colspan="5" class="empty-state">Loading...</td></tr>
       </tbody>
     </table>
   </main>

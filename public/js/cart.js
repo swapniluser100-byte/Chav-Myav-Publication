@@ -6,7 +6,7 @@ function render() {
   const summaryWrap = document.getElementById('cart-summary');
 
   if (items.length === 0) {
-    tableWrap.innerHTML = `<p class="empty-state">तुमची कार्ट रिकामी आहे. <a href="/html/index.html" style="color:var(--maroon);">पुस्तके पाहा →</a></p>`;
+    tableWrap.innerHTML = `<p class="empty-state">Your cart is empty. <a href="/html/index.html" style="color:var(--maroon);">Browse books →</a></p>`;
     summaryWrap.innerHTML = '';
     return;
   }
@@ -14,7 +14,7 @@ function render() {
   tableWrap.innerHTML = `
     <table class="cart-table">
       <thead>
-        <tr><th>पुस्तक</th><th>संख्या</th><th>किंमत</th><th></th></tr>
+        <tr><th>Book</th><th>Quantity</th><th>Price</th><th></th></tr>
       </thead>
       <tbody>
         ${items
@@ -30,7 +30,7 @@ function render() {
               </div>
             </td>
             <td>${formatRupees(item.price_paise * item.quantity)}</td>
-            <td><button class="remove-link" data-action="remove">काढा</button></td>
+            <td><button class="remove-link" data-action="remove">Remove</button></td>
           </tr>
         `
           )
@@ -43,10 +43,10 @@ function render() {
   const shipping = subtotal >= 50000 || subtotal === 0 ? 0 : 5000;
   summaryWrap.innerHTML = `
     <div class="summary-card">
-      <div class="summary-row"><span>उप-बेरीज</span><span>${formatRupees(subtotal)}</span></div>
-      <div class="summary-row"><span>शिपिंग</span><span>${shipping ? formatRupees(shipping) : 'मोफत'}</span></div>
-      <div class="summary-row total"><span>एकूण</span><span>${formatRupees(subtotal + shipping)}</span></div>
-      <a class="btn btn-primary btn-block" href="/html/checkout.html" style="margin-top:16px;">चेकआउट करा</a>
+      <div class="summary-row"><span>Subtotal</span><span>${formatRupees(subtotal)}</span></div>
+      <div class="summary-row"><span>Shipping</span><span>${shipping ? formatRupees(shipping) : 'Free'}</span></div>
+      <div class="summary-row total"><span>Total</span><span>${formatRupees(subtotal + shipping)}</span></div>
+      <a class="btn btn-primary btn-block" href="/html/checkout.html" style="margin-top:16px;">Proceed to Checkout</a>
     </div>
   `;
 

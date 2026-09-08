@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>पुस्तके | ॲडमिन कन्सोल</title>
+<title>Books | Admin Console</title>
 <link rel="stylesheet" href="/admin/css/admin.css" />
 </head>
 <body>
 <div class="admin-shell">
   <aside class="admin-sidebar">
     <div class="brand">
-      <span class="brand-mark">चव म्याव प्रकाशन</span>
+      <span class="brand-mark">Chav Myav Publication</span>
       <span class="brand-sub">ADMIN CONSOLE</span>
     </div>
     <nav>
-      <a href="/admin/html/dashboard.html">डॅशबोर्ड</a>
-      <a href="/admin/html/books.html" class="active">पुस्तके</a>
-      <a href="/admin/html/orders.html">ऑर्डर्स</a>
-      <a href="/admin/html/customers.html">ग्राहक</a>
+      <a href="/admin/html/dashboard.html">Dashboard</a>
+      <a href="/admin/html/books.html" class="active">Books</a>
+      <a href="/admin/html/orders.html">Orders</a>
+      <a href="/admin/html/customers.html">Customers</a>
     </nav>
-    <button class="logout-btn" data-logout>लॉगआउट</button>
+    <button class="logout-btn" data-logout>Log Out</button>
   </aside>
   <main class="admin-main">
     <div class="admin-header">
-      <h1>पुस्तके</h1>
-      <button class="btn btn-primary" id="add-book-btn">+ नवीन पुस्तक</button>
+      <h1>Books</h1>
+      <button class="btn btn-primary" id="add-book-btn">+ New Book</button>
     </div>
 
     <table class="admin-table">
       <thead>
-        <tr><th>शीर्षक</th><th>लेखक</th><th>विभाग</th><th>किंमत</th><th>साठा</th><th>स्थिती</th><th></th></tr>
+        <tr><th>Title</th><th>Author</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th></th></tr>
       </thead>
       <tbody id="books-tbody">
-        <tr><td colspan="7" class="empty-state">लोड होत आहे...</td></tr>
+        <tr><td colspan="7" class="empty-state">Loading...</td></tr>
       </tbody>
     </table>
   </main>

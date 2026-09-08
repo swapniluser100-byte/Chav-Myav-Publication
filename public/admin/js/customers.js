@@ -17,7 +17,7 @@ async function loadCustomers() {
     const { customers } = await AdminApi.getCustomers();
     tbody.innerHTML = customers.length
       ? customers.map(customerRowHtml).join('')
-      : `<tr><td colspan="5" class="empty-state">अजून कोणताही ग्राहक नाही.</td></tr>`;
+      : `<tr><td colspan="5" class="empty-state">No customers yet.</td></tr>`;
   } catch (err) {
     tbody.innerHTML = `<tr><td colspan="5" class="empty-state">${err.message}</td></tr>`;
   }

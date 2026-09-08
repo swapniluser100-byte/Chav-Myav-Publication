@@ -27,7 +27,7 @@ export async function adminGetOrder(request, env, id) {
   )
     .bind(id)
     .first();
-  if (!order) return error('ऑर्डर सापडली नाही', 404);
+  if (!order) return error('Order not found', 404);
 
   const { results: items } = await env.DB.prepare(`SELECT * FROM order_items WHERE order_id = ?`).bind(id).all();
   return ok({ order, items });
@@ -40,10 +40,10 @@ export async function adminGetOrder(request, env, id) {
  */
 export async function adminUpdateOrder(request, env, id) {
   const b = await request.json().catch(() => null);
-  if (!b) return error('अवैध विनंती', 400);
+  if (!b) return error('Invalid request', 400);
 
   const order = await env.DB.prepare(`SELECT * FROM orders WHERE id = ?`).bind(id).first();
-  if (!order) return error('ऑर्डर सापडली नाही', 404);
+  if (!order) return error('Order not found', 404);
 
   const nextStatus = b.status || order.status;
   const trackingNumber = b.tracking_number ?? order.tracking_number;

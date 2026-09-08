@@ -14,7 +14,7 @@ export async function adminListCustomers(request, env) {
 /** GET /api/admin/customers/:id */
 export async function adminGetCustomer(request, env, id) {
   const customer = await env.DB.prepare(`SELECT * FROM customers WHERE id = ?`).bind(id).first();
-  if (!customer) return error('ग्राहक सापडला नाही', 404);
+  if (!customer) return error('Customer not found', 404);
   const { results: orders } = await env.DB.prepare(
     `SELECT order_number, status, total_paise, created_at FROM orders WHERE customer_id = ? ORDER BY created_at DESC`
   )

@@ -45,7 +45,7 @@ export async function getBookBySlug(request, env, slug) {
     .bind(slug)
     .first();
 
-  if (!book) return error('पुस्तक सापडले नाही', 404);
+  if (!book) return error('Book not found', 404);
   return ok({ book });
 }
 

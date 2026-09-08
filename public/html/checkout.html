@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>चेकआउट | चव म्याव प्रकाशन</title>
+<title>Checkout | Chav Myav Publication</title>
 <link rel="stylesheet" href="/css/main.css" />
 <link rel="stylesheet" href="/css/checkout.css" />
 </head>
@@ -12,58 +12,58 @@
 <header class="site-header">
   <div class="container">
     <a class="brand" href="/html/index.html">
-      <span class="brand-mark">चव म्याव प्रकाशन</span>
-      <span class="brand-sub">CHAV MYAV PUBLICATION</span>
+      <span class="brand-mark">Chav Myav Publication</span>
+      <span class="brand-sub">चव म्याव प्रकाशन</span>
     </a>
     <nav class="main-nav">
-      <a href="/html/index.html">मुखपृष्ठ</a>
-      <a class="cart-link" href="/html/cart.html">🛒 कार्ट <span class="cart-count" data-cart-count>0</span></a>
+      <a href="/html/index.html">Home</a>
+      <a class="cart-link" href="/html/cart.html">🛒 Cart <span class="cart-count" data-cart-count>0</span></a>
     </nav>
   </div>
 </header>
 
 <div class="container">
-  <h1 class="page-title">चेकआउट</h1>
+  <h1 class="page-title">Checkout</h1>
   <div class="checkout-grid">
     <form id="checkout-form">
       <div class="form-group">
-        <label for="name">पूर्ण नाव</label>
+        <label for="name">Full Name</label>
         <input type="text" id="name" name="name" required />
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label for="email">ईमेल</label>
+          <label for="email">Email</label>
           <input type="email" id="email" name="email" required />
         </div>
         <div class="form-group">
-          <label for="phone">मोबाईल क्रमांक</label>
+          <label for="phone">Mobile Number</label>
           <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required />
         </div>
       </div>
       <div class="form-group">
-        <label for="address1">पत्ता ओळ १</label>
+        <label for="address1">Address Line 1</label>
         <input type="text" id="address1" name="address1" required />
       </div>
       <div class="form-group">
-        <label for="address2">पत्ता ओळ २ (ऐच्छिक)</label>
+        <label for="address2">Address Line 2 (optional)</label>
         <input type="text" id="address2" name="address2" />
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label for="city">शहर</label>
+          <label for="city">City</label>
           <input type="text" id="city" name="city" required />
         </div>
         <div class="form-group">
-          <label for="state">राज्य</label>
-          <input type="text" id="state" name="state" required value="महाराष्ट्र" />
+          <label for="state">State</label>
+          <input type="text" id="state" name="state" required value="Maharashtra" />
         </div>
       </div>
       <div class="form-group">
-        <label for="pincode">पिनकोड</label>
+        <label for="pincode">Pincode</label>
         <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" required />
       </div>
       <p class="form-error" id="checkout-error"></p>
-      <button type="submit" class="btn btn-primary btn-block">पैसे भरा</button>
+      <button type="submit" class="btn btn-primary btn-block">Pay Now</button>
     </form>
     <div id="checkout-summary"></div>
   </div>
@@ -71,11 +71,11 @@
 
 <footer class="site-footer">
   <div class="container">
-    <div><h4>चव म्याव प्रकाशन</h4><p>मराठी वाचकांसाठी दर्जेदार साहित्य घरपोच पोहोचवणारे प्रकाशन.</p></div>
-    <div><h4>दुवे</h4><p><a href="/html/index.html">मुखपृष्ठ</a></p></div>
-    <div><h4>संपर्क</h4><p>support@chavmayav.com</p></div>
+    <div><h4>Chav Myav Publication</h4><p>Bringing quality Marathi literature to readers everywhere, delivered to your door.</p></div>
+    <div><h4>Links</h4><p><a href="/html/index.html">Home</a></p></div>
+    <div><h4>Contact</h4><p>support@chavmayav.com</p></div>
   </div>
-  <p class="footer-bottom">© 2026 चव म्याव प्रकाशन. सर्व हक्क राखीव.</p>
+  <p class="footer-bottom">© 2026 Chav Myav Publication. All rights reserved.</p>
 </footer>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

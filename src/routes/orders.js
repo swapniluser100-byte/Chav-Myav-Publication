@@ -20,12 +20,12 @@ function genOrderNumber() {
 export async function createOrder(request, env) {
   const body = await request.json().catch(() => null);
   if (!body || !body.customer || !Array.isArray(body.items) || body.items.length === 0) {
-    return error('अपूर्ण ऑर्डर माहिती', 400);
+    return error('Incomplete order information', 400);
   }
 
   const { customer, items } = body;
   for (const field of ['name', 'email', 'phone', 'address1', 'city', 'state', 'pincode']) {
-    if (!customer[field]) return error(`${field} आवश्यक आहे`, 400);
+    if (!customer[field]) return error(`${field} is required`, 400);
   }
 
   // Re-price every item server-side; never trust prices from the client.
@@ -42,9 +42,9 @@ export async function createOrder(request, env) {
   const lineItems = [];
   for (const { bookId, quantity } of items) {
     const book = bookMap.get(bookId);
-    if (!book) return error(`पुस्तक क्र. ${bookId} उपलब्ध नाही`, 400);
-    if (quantity < 1) return error('संख्या किमान १ असावी', 400);
-    if (book.stock < quantity) return error(`"${book.title}" पुरेशा साठ्यात नाही`, 400);
+    if (!book) return error(`Book #${bookId} is not available`, 400);
+    if (quantity < 1) return error('Quantity must be at least 1', 400);
+    if (book.stock < quantity) return error(`"${book.title}" is out of stock`, 400);
     const lineTotal = book.price_paise * quantity;
     subtotal += lineTotal;
     lineItems.push({ bookId: book.id, title: book.title, unitPrice: book.price_paise, quantity, lineTotal });
@@ -124,7 +124,7 @@ export async function getOrderByNumber(request, env, orderNumber) {
   const order = await env.DB.prepare(`SELECT * FROM orders WHERE order_number = ?`)
     .bind(orderNumber)
     .first();
-  if (!order) return error('ऑर्डर सापडली नाही', 404);
+  if (!order) return error('Order not found', 404);
 
   const { results: items } = await env.DB.prepare(`SELECT * FROM order_items WHERE order_id = ?`)
     .bind(order.id)
