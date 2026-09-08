@@ -2,7 +2,7 @@
   "name": "chav-mayav-publication",
   "version": "1.0.0",
   "private": true,
-  "description": "Chav Myav Publication - Marathi bookstore (Cloudflare Workers + D1 + Razorpay + Resend)",
+  "description": "Chav Myav Publication - Marathi bookstore (Cloudflare Workers + D1, Cash on Delivery checkout)",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",

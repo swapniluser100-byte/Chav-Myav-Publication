@@ -48,12 +48,11 @@ function formatRupees(paise) {
 
 function statusLabel(status) {
   const map = {
-    pending_payment: 'Payment Pending',
-    paid: 'Paid',
+    pending: 'New / Unconfirmed',
+    confirmed: 'Confirmed',
     shipped: 'Shipped',
     delivered: 'Delivered',
     cancelled: 'Cancelled',
-    payment_failed: 'Payment Failed',
   };
   return map[status] || status;
 }

@@ -13,7 +13,7 @@ function orderRowHtml(o) {
 }
 
 function manageModalHtml(order) {
-  const statuses = ['pending_payment', 'paid', 'shipped', 'delivered', 'cancelled', 'payment_failed'];
+  const statuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
   return `
     <div class="form-group">
       <label>Status</label>
@@ -23,7 +23,7 @@ function manageModalHtml(order) {
     </div>
     <div class="form-group"><label>Tracking Number</label><input name="tracking_number" value="${order.tracking_number || ''}" /></div>
     <div class="form-group"><label>Internal Notes</label><textarea name="notes" rows="2">${order.notes || ''}</textarea></div>
-    <p style="font-size:12px;color:var(--muted);">Setting status to "Shipped" will automatically send the customer a branded shipping email.</p>
+    <p style="font-size:12px;color:var(--muted);">Cash on Delivery — remember to call the customer to confirm the order and collect payment on delivery.</p>
   `;
 }
 

@@ -1,9 +1,7 @@
 // src/routes/admin/orders.js
 import { ok, error } from '../../lib/response.js';
-import { sendAndLog } from '../../lib/resend.js';
-import { orderShippedEmail } from '../../emails/order-shipped.js';
 
-/** GET /api/admin/orders?status=paid */
+/** GET /api/admin/orders?status=pending */
 export async function adminListOrders(request, env) {
   const url = new URL(request.url);
   const status = url.searchParams.get('status');
@@ -36,7 +34,9 @@ export async function adminGetOrder(request, env, id) {
 /**
  * PATCH /api/admin/orders/:id
  * body: { status?, tracking_number?, notes? }
- * Setting status -> 'shipped' automatically sends the branded shipping email.
+ * Cash on Delivery orders move through: pending -> confirmed -> shipped -> delivered
+ * (or cancelled at any point). No emails are sent -- customers are tracked
+ * and updated here in the console, or contacted directly by phone.
  */
 export async function adminUpdateOrder(request, env, id) {
   const b = await request.json().catch(() => null);
@@ -54,19 +54,6 @@ export async function adminUpdateOrder(request, env, id) {
   )
     .bind(nextStatus, trackingNumber, notes, id)
     .run();
-
-  if (nextStatus === 'shipped' && order.status !== 'shipped') {
-    const customer = await env.DB.prepare(`SELECT email FROM customers WHERE id = ?`).bind(order.customer_id).first();
-    const updatedOrder = { ...order, status: nextStatus, tracking_number: trackingNumber };
-    const emailContent = orderShippedEmail(updatedOrder);
-    await sendAndLog(env, {
-      to: customer.email,
-      subject: emailContent.subject,
-      html: emailContent.html,
-      type: 'order_shipped',
-      orderId: order.id,
-    });
-  }
 
   return ok({});
 }

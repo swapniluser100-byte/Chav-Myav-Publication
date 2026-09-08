@@ -6,6 +6,7 @@ compatibility_date = "2025-01-01"
 [assets]
 directory = "./public"
 binding = "ASSETS"
+not_found_handling = "404-page"
 
 # ---- D1 database ----
 # Create with: wrangler d1 create chav-mayav-db
@@ -16,13 +17,8 @@ database_name = "chav-mayav-db"
 database_id = "b0d29f05-6d4a-48a0-9e84-f4654331c367"
 
 # ---- Secrets (set with `wrangler secret put NAME`, never commit real values) ----
-# RAZORPAY_KEY_ID
-# RAZORPAY_KEY_SECRET
-# RAZORPAY_WEBHOOK_SECRET
-# RESEND_API_KEY
-# ADMIN_SESSION_SECRET   (any long random string)
+# ADMIN_SESSION_SECRET   (any long random string, used to sign admin login sessions)
 
 [vars]
-EMAIL_FROM = "Chav Myav Publication <orders@chavmayav.com>"
-EMAIL_REPLY_TO = "support@chavmayav.com"
-ADMIN_ALERT_EMAIL = "owner@chavmayav.com"
+# Reserved for future use (no payment gateway or email service configured --
+# checkout is Cash on Delivery, and orders are tracked in the admin console).

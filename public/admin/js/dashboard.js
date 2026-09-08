@@ -2,12 +2,12 @@
 async function load() {
   await guardAdminPage();
   try {
-    const { stats, recentOrders, recentEmails } = await AdminApi.getDashboard();
+    const { stats, recentOrders } = await AdminApi.getDashboard();
 
     document.getElementById('stat-grid').innerHTML = `
       <div class="stat-card"><div class="label">Total Orders</div><div class="value">${stats.total_orders}</div></div>
       <div class="stat-card"><div class="label">Total Revenue</div><div class="value">${formatRupees(stats.total_revenue)}</div></div>
-      <div class="stat-card"><div class="label">Pending Shipment</div><div class="value">${stats.pending_orders}</div></div>
+      <div class="stat-card"><div class="label">New / Unconfirmed</div><div class="value">${stats.pending_orders}</div></div>
       <div class="stat-card"><div class="label">Active Books</div><div class="value">${stats.total_books}</div></div>
       <div class="stat-card"><div class="label">Low Stock</div><div class="value">${stats.low_stock}</div></div>
       <div class="stat-card"><div class="label">Total Customers</div><div class="value">${stats.total_customers}</div></div>
@@ -31,24 +31,6 @@ async function load() {
           </tbody>
         </table>`
       : `<p class="empty-state">No orders yet.</p>`;
-
-    document.getElementById('recent-emails').innerHTML = recentEmails.length
-      ? `<table class="admin-table">
-          <thead><tr><th>Recipient</th><th>Subject</th><th>Type</th><th>Status</th></tr></thead>
-          <tbody>
-            ${recentEmails
-              .map(
-                (m) => `<tr>
-                  <td>${m.to_email}</td>
-                  <td>${m.subject}</td>
-                  <td>${m.type}</td>
-                  <td><span class="status-pill status-${m.status === 'sent' ? 'paid' : 'cancelled'}">${m.status}</span></td>
-                </tr>`
-              )
-              .join('')}
-          </tbody>
-        </table>`
-      : `<p class="empty-state">No emails sent yet.</p>`;
   } catch (err) {
     console.error(err);
   }

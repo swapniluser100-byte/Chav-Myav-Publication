@@ -1,5 +1,6 @@
 // public/js/checkout.js
-// Requires https://checkout.razorpay.com/v1/checkout.js to be loaded on the page.
+// Cash on Delivery checkout: no payment gateway. Submitting the form places
+// the order immediately and redirects to the confirmation page.
 
 function renderSummary() {
   const subtotal = CartStore.subtotalPaise();
@@ -15,7 +16,7 @@ function renderSummary() {
         .join('')}
       <div class="summary-row"><span>Subtotal</span><span>${formatRupees(subtotal)}</span></div>
       <div class="summary-row"><span>Shipping</span><span>${shipping ? formatRupees(shipping) : 'Free'}</span></div>
-      <div class="summary-row total"><span>Total</span><span>${formatRupees(subtotal + shipping)}</span></div>
+      <div class="summary-row total"><span>Total (Pay on Delivery)</span><span>${formatRupees(subtotal + shipping)}</span></div>
     </div>
   `;
 }
@@ -33,12 +34,12 @@ async function handleSubmit(e) {
   const errorBox = document.getElementById('checkout-error');
   errorBox.style.display = 'none';
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Processing...';
+  submitBtn.textContent = 'Placing your order...';
 
   const customer = {
     name: form.name.value.trim(),
-    email: form.email.value.trim(),
     phone: form.phone.value.trim(),
+    email: form.email.value.trim() || undefined,
     address1: form.address1.value.trim(),
     address2: form.address2.value.trim(),
     city: form.city.value.trim(),
@@ -49,46 +50,14 @@ async function handleSubmit(e) {
   const items = Object.values(CartStore.getAll()).map((i) => ({ bookId: i.bookId, quantity: i.quantity }));
 
   try {
-    const orderResult = await Api.createOrder({ customer, items });
-
-    const rzp = new Razorpay({
-      key: orderResult.razorpayKeyId,
-      amount: orderResult.amountPaise,
-      currency: 'INR',
-      name: 'Chav Myav Publication',
-      description: `Order #${orderResult.orderNumber}`,
-      order_id: orderResult.razorpayOrderId,
-      prefill: { name: customer.name, email: customer.email, contact: customer.phone },
-      theme: { color: '#8C1F28' },
-      handler: async function (response) {
-        try {
-          await Api.verifyPayment({
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature: response.razorpay_signature,
-          });
-          CartStore.clear();
-          location.href = `/html/order-success.html?order=${orderResult.orderNumber}`;
-        } catch (err) {
-          errorBox.textContent = err.message;
-          errorBox.style.display = 'block';
-        }
-      },
-      modal: {
-        ondismiss: function () {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Pay Now';
-        },
-      },
-    });
-
-    rzp.open();
+    const result = await Api.createOrder({ customer, items });
+    CartStore.clear();
+    location.href = `/html/order-success.html?order=${result.orderNumber}`;
   } catch (err) {
     errorBox.textContent = err.message;
     errorBox.style.display = 'block';
-  } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Pay Now';
+    submitBtn.textContent = 'Place Order (Cash on Delivery)';
   }
 }
 

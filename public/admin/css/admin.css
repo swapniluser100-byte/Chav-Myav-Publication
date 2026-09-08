@@ -86,11 +86,11 @@ html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
 .admin-table tr:last-child td { border-bottom: none; }
 
 .status-pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
-.status-pending_payment { background: #F3E3C3; color: #8A5A00; }
-.status-paid { background: #DCE9DC; color: #2E5E2E; }
+.status-pending { background: #F3E3C3; color: #8A5A00; }
+.status-confirmed { background: #DCE9DC; color: #2E5E2E; }
 .status-shipped { background: #D6E4F0; color: #22496B; }
 .status-delivered { background: #D2E9D2; color: #1E5C1E; }
-.status-cancelled, .status-payment_failed { background: #F3D6D6; color: var(--maroon-dark); }
+.status-cancelled { background: #F3D6D6; color: var(--maroon-dark); }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;

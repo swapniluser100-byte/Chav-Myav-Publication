@@ -8,7 +8,6 @@ import { requireAdmin } from './lib/auth.js';
 
 import { listBooks, getBookBySlug, listCategories } from './routes/books.js';
 import { createOrder, getOrderByNumber } from './routes/orders.js';
-import { verifyPayment, razorpayWebhook } from './routes/payments.js';
 
 import { adminLogin, adminLogout, adminMe } from './routes/admin/auth.js';
 import { getDashboard } from './routes/admin/dashboard.js';
@@ -48,9 +47,6 @@ async function handleApi(request, env) {
 
   if (path === '/orders' && method === 'POST') return createOrder(request, env);
   if (segments[0] === 'orders' && segments[1] && method === 'GET') return getOrderByNumber(request, env, segments[1]);
-
-  if (path === '/payments/verify' && method === 'POST') return verifyPayment(request, env);
-  if (path === '/payments/webhook' && method === 'POST') return razorpayWebhook(request, env);
 
   // ---------- Admin auth (no session required) ----------
   if (path === '/admin/login' && method === 'POST') return adminLogin(request, env);
@@ -99,6 +95,17 @@ export default {
         console.error(err);
         return withCors(error('Internal server error', 500));
       }
+    }
+
+    // The homepage and admin console live under /html/ and /admin/html/
+    // (that's the "everything grouped by file type" folder structure), so
+    // the bare domain root and /admin have nothing to serve directly.
+    // Redirect them to the real entry pages instead of 404ing.
+    if (url.pathname === '/' || url.pathname === '') {
+      return Response.redirect(new URL('/html/index.html', url), 302);
+    }
+    if (url.pathname === '/admin' || url.pathname === '/admin/') {
+      return Response.redirect(new URL('/admin/html/login.html', url), 302);
     }
 
     // Everything else is a static asset (HTML/CSS/JS/images from /public).

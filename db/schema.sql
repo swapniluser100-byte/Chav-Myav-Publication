@@ -4,11 +4,11 @@
 PRAGMA foreign_keys = ON;
 
 -- ==========================================================
--- Categories (e.g. कथासंग्रह, कविता, कादंबरी, चरित्र)
+-- Categories (e.g. Short Stories, Novels, Poetry, Biography)
 -- ==========================================================
 CREATE TABLE IF NOT EXISTS categories (
   id            INTEGER PRIMARY KEY AUTOINCREMENT,
-  name          TEXT NOT NULL,               -- Marathi name shown to customers
+  name          TEXT NOT NULL,
   slug          TEXT NOT NULL UNIQUE,
   description   TEXT,
   created_at    TEXT NOT NULL DEFAULT (datetime('now'))
@@ -41,11 +41,13 @@ CREATE INDEX IF NOT EXISTS idx_books_active ON books(is_active);
 
 -- ==========================================================
 -- Customers
+-- Email is optional (no emails are sent by this app) -- phone is the
+-- primary contact method for Cash on Delivery orders.
 -- ==========================================================
 CREATE TABLE IF NOT EXISTS customers (
   id            INTEGER PRIMARY KEY AUTOINCREMENT,
   name          TEXT NOT NULL,
-  email         TEXT NOT NULL UNIQUE,
+  email         TEXT UNIQUE,                 -- nullable; SQLite allows multiple NULLs
   phone         TEXT NOT NULL,
   address_line1 TEXT,
   address_line2 TEXT,
@@ -55,18 +57,22 @@ CREATE TABLE IF NOT EXISTS customers (
   created_at    TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+CREATE INDEX IF NOT EXISTS idx_customers_phone ON customers(phone);
+
 -- ==========================================================
 -- Orders
+-- Cash on Delivery only -- no payment gateway fields. Stock is
+-- decremented immediately when the order is placed.
 -- ==========================================================
 CREATE TABLE IF NOT EXISTS orders (
   id                  INTEGER PRIMARY KEY AUTOINCREMENT,
   order_number        TEXT NOT NULL UNIQUE,   -- human friendly, e.g. CMP-000123
   customer_id         INTEGER NOT NULL REFERENCES customers(id),
-  status              TEXT NOT NULL DEFAULT 'pending_payment',
-                      -- pending_payment | paid | shipped | delivered | cancelled | payment_failed
+  status              TEXT NOT NULL DEFAULT 'pending',
+                      -- pending | confirmed | shipped | delivered | cancelled
   subtotal_paise      INTEGER NOT NULL,
   shipping_paise      INTEGER NOT NULL DEFAULT 0,
-  total_paise         INTEGER NOT NULL,
+  total_paise         INTEGER NOT NULL,       -- amount to collect on delivery
   shipping_name       TEXT NOT NULL,
   shipping_phone      TEXT NOT NULL,
   shipping_address1   TEXT NOT NULL,
@@ -74,8 +80,6 @@ CREATE TABLE IF NOT EXISTS orders (
   shipping_city       TEXT NOT NULL,
   shipping_state      TEXT NOT NULL,
   shipping_pincode    TEXT NOT NULL,
-  razorpay_order_id   TEXT,
-  razorpay_payment_id TEXT,
   tracking_number     TEXT,
   notes               TEXT,
   created_at          TEXT NOT NULL DEFAULT (datetime('now')),
@@ -84,7 +88,6 @@ CREATE TABLE IF NOT EXISTS orders (
 
 CREATE INDEX IF NOT EXISTS idx_orders_customer ON orders(customer_id);
 CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
-CREATE INDEX IF NOT EXISTS idx_orders_razorpay ON orders(razorpay_order_id);
 
 -- ==========================================================
 -- Order line items (snapshot of price/title at time of purchase)
@@ -111,18 +114,4 @@ CREATE TABLE IF NOT EXISTS admin_users (
   password_hash  TEXT NOT NULL,   -- PBKDF2 hash, format: iterations:saltHex:hashHex
   role           TEXT NOT NULL DEFAULT 'admin', -- admin | staff
   created_at     TEXT NOT NULL DEFAULT (datetime('now'))
-);
-
--- ==========================================================
--- Email log (so admin console can show what branded emails were sent)
--- ==========================================================
-CREATE TABLE IF NOT EXISTS email_log (
-  id          INTEGER PRIMARY KEY AUTOINCREMENT,
-  to_email    TEXT NOT NULL,
-  subject     TEXT NOT NULL,
-  type        TEXT NOT NULL,   -- order_confirmation | order_shipped | admin_alert | order_delivered
-  order_id    INTEGER REFERENCES orders(id),
-  status      TEXT NOT NULL DEFAULT 'sent', -- sent | failed
-  error       TEXT,
-  created_at  TEXT NOT NULL DEFAULT (datetime('now'))
 );

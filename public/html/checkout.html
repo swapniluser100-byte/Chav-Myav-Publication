@@ -32,12 +32,12 @@
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div class="form-group">
           <label for="phone">Mobile Number</label>
           <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email (optional)</label>
+          <input type="email" id="email" name="email" />
         </div>
       </div>
       <div class="form-group">
@@ -62,8 +62,11 @@
         <label for="pincode">Pincode</label>
         <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}" required />
       </div>
+      <div class="cod-note">
+        💵 <strong>Cash on Delivery</strong> — pay in cash when your order arrives. No online payment needed.
+      </div>
       <p class="form-error" id="checkout-error"></p>
-      <button type="submit" class="btn btn-primary btn-block">Pay Now</button>
+      <button type="submit" class="btn btn-primary btn-block">Place Order (Cash on Delivery)</button>
     </form>
     <div id="checkout-summary"></div>
   </div>
@@ -78,7 +81,6 @@
   <p class="footer-bottom">© 2026 Chav Myav Publication. All rights reserved.</p>
 </footer>
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="/js/api.js"></script>
 <script src="/js/cart-store.js"></script>
 <script src="/js/checkout.js"></script>

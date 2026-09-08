@@ -15,7 +15,8 @@ async function load() {
         <h1 style="font-family:var(--font-display);font-size:26px;">Thank you, ${order.shipping_name}!</h1>
         <p style="color:var(--muted);">
           Your order <strong>#${order.order_number}</strong> has been placed successfully.
-          A confirmation email is on its way to your inbox.
+          Pay in cash when it arrives at your address — we'll be in touch on
+          <strong>${order.shipping_phone}</strong> to confirm delivery details.
         </p>
         <table class="cart-table" style="text-align:left;margin-top:24px;">
           <tbody>
