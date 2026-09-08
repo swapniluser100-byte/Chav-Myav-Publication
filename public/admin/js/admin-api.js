@@ -10,7 +10,8 @@ async function adminRequest(path, options = {}) {
   const data = await res.json().catch(() => ({}));
 
   if (res.status === 401) {
-    if (!location.pathname.endsWith('/login.html')) location.href = '/admin/html/login.html';
+    const onLoginPage = /\/login(\.html)?\/?$/.test(location.pathname);
+    if (!onLoginPage) location.href = '/admin/html/login.html';
     throw new Error('Unauthorized');
   }
   if (!res.ok || data.ok === false) {

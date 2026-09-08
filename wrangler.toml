@@ -7,6 +7,7 @@ compatibility_date = "2025-01-01"
 directory = "./public"
 binding = "ASSETS"
 not_found_handling = "404-page"
+html_handling = "none"
 
 # ---- D1 database ----
 # Create with: wrangler d1 create chav-mayav-db
